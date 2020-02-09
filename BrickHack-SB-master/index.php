@@ -17,8 +17,8 @@
 
 
     <main class="middle">
-     <button onclick="window.location.href='ScannerPage.php'" class="btn btn-info center-block ">
-      <span class="glyphicon glyphicon-search"></span> Scan and Save!
+     <button onclick="window.location.href='ScannerPage.php'" class=" greener sbmt btn  center-block ">
+      <span class="glyphicon glyphicon-camera"></span> Scan and Save!
     </button> 
   </main>
 
