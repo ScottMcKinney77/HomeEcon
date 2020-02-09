@@ -34,25 +34,25 @@
 
   <body>
 
+
     <div class="container box">
       <section id="container" class="container">
       <ul id="products">
         
       </ul>
+          <h3 align="left">Manual Entry:</h3>
+          <form id='manualEntryForm' method="post">
+              <input type="text" name="productName" placeholder="input" class="input-box">
+              <input type="submit" id="submit" value="Submit">
+          </form>
       <div id="interactive" class="viewport"></div>
-
-      <button id="submitButton">Submit</button>
+      <br>
+      <button id="submitButton">Generate Recipes</button>
       <ul id="resultsDisplay">
         
       </ul>
 
     </section>
-
-<!--    <h2 align="center">Manual Entry:</h2>
-    <form method='post' id="testingSubmit" action="">
-      <input type="text" id="name1" placeholder="Name" class="input-box">
-      <input type="submit" id="submit" value="Submit">
-    </form> -->
 
   </div>
 

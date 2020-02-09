@@ -86,14 +86,6 @@ var json = {
             ]
         }, 
         {
-            "link": "https://shop.wegmans.com/recipes/4311/baby-bellas-with-bruschetta", 
-            "name": "Baby Bellas with Bruschetta", 
-            "ingredients": [
-                "Wegmans Organic Basting Oil", 
-                " Wegmans Whole Baby Bella Mushrooms"
-            ]
-        }, 
-        {
             "link": "https://shop.wegmans.com/recipes/4075/whole-wheat-pasta-with-roasted-vegetables", 
             "name": "Whole Wheat Pasta with Roasted Vegetables", 
             "ingredients": [
@@ -218,14 +210,6 @@ var json = {
             ]
         }, 
         {
-            "link": "https://shop.wegmans.com/recipes/2472/asian-barbecue-shrimp", 
-            "name": "Asian Barbecue Shrimp", 
-            "ingredients": [
-                "Wegmans Organic Basting Oil", 
-                " Wegmans Asian Style BBQ Sauce"
-            ]
-        }, 
-        {
             "link": "https://shop.wegmans.com/recipes/4059/avocado-tomato-on-baguette", 
             "name": "Avocado & Tomato on Baguette", 
             "ingredients": [
@@ -248,14 +232,6 @@ var json = {
                 " Wegmans Baby Cut Carrots", 
                 " Wegmans Chopped Onions", 
                 " Wegmans Chicken Culinary Stock"
-            ]
-        }, 
-        {
-            "link": "https://shop.wegmans.com/recipes/18/asparagus-prosciutto-bundles", 
-            "name": "Asparagus & Prosciutto Bundles", 
-            "ingredients": [
-                "Wegmans Spicy Brown Mustard", 
-                " Wegmans Italian Classics All Natural Prosciutto"
             ]
         }, 
         {
@@ -1024,14 +1000,6 @@ var json = {
             ]
         }, 
         {
-            "link": "https://shop.wegmans.com/recipes/2545/artichokes-parmigiano", 
-            "name": "Artichokes Parmigiano", 
-            "ingredients": [
-                "Wegmans Frozen Halves & Quarters Artichoke Hearts", 
-                " Wegmans Organic Basting Oil"
-            ]
-        }, 
-        {
             "link": "https://shop.wegmans.com/recipes/4018/baby-potatoes-with-creme-fraiche-and-caviar", 
             "name": "Baby Potatoes with Creme Fraiche and Caviar", 
             "ingredients": [
@@ -1471,14 +1439,6 @@ var json = {
             ]
         }, 
         {
-            "link": "https://shop.wegmans.com/recipes/4386/apple-chips", 
-            "name": "Apple Chips", 
-            "ingredients": [
-                "McCormick Gourmet All Natural Madagascar Vanilla Beans", 
-                " Wegmans Organic Pure Cane Granulated Sugar"
-            ]
-        }, 
-        {
             "link": "https://shop.wegmans.com/recipes/4378/avocado-toast", 
             "name": "Avocado Toast", 
             "ingredients": [
@@ -1568,14 +1528,6 @@ var json = {
                 " Dark Color", 
                 " Wegmans Sparkling Water Lemon", 
                 " Fresh Ginger"
-            ]
-        }, 
-        {
-            "link": "https://shop.wegmans.com/recipes/2349/basil-pesto-pane", 
-            "name": "Basil Pesto Pane", 
-            "ingredients": [
-                "Wegmans Pane Italian Bread", 
-                " Wegmans Italian Classics Basil Pesto Sauce"
             ]
         }, 
         {
@@ -2151,14 +2103,6 @@ var json = {
             ]
         }, 
         {
-            "link": "https://shop.wegmans.com/recipes/676/beef-on-crostini", 
-            "name": "Beef on Crostini", 
-            "ingredients": [
-                "Wegmans Horseradish Cream Sauce", 
-                "Wegmans Black Angus Seasoned Roast Beef"
-            ]
-        }, 
-        {
             "link": "https://shop.wegmans.com/recipes/1769/baked-beans", 
             "name": "Baked Beans", 
             "ingredients": [
@@ -2220,18 +2164,17 @@ function doQuery(onList){
     var characteristicArray = new Array(json.recipes.length);
 
     var missingIngredients = 0;
-    var closestRecipeVal = 500;
+    var missingPercentage = 100;
+    var closestRecipeVal = 100;
     var closestRecipeLoc = -1;
-    var runnerUpVal = 500;
+    var runnerUpVal = 100;
     var runnerUpLoc = -1;
 
 
     function checkSubstring(set1, string1){
         for (q = 0; q < set1.length; q++){
-            for (word = 0; word < q.length; word++){
-                if (string1.indexOf(set1[q][word]) !== -1){
+            if (string1.indexOf(set1[q]) !== -1){
                     return true
-                }
             }
         }
         return false
@@ -2240,28 +2183,31 @@ function doQuery(onList){
     for (i = 0; i < json.recipes.length; i++) { 
         //console.log(json.recipes[i].name); 
         missingIngredients = 0;
+        missingPercentage = 100;
         for (j = 0; j < json.recipes[i].ingredients.length; j++){ //NOT O(n^2) this is looping over ingredients lists of each recipe 
         	//console.log(json.recipes[i].ingredients[j]);
         	if (!checkSubstring(onList, json.recipes[i].ingredients[j])){
         		missingIngredients += 1;
         	}
         }
-        if (missingIngredients < closestRecipeVal){
+        missingPercentage = 100*(missingIngredients / json.recipes[i].ingredients.length)
+        //console.log("Missing Percentage: " + missingPercentage + ", Missing ingredients: " + missingIngredients + ", Num ingredients: " + json.recipes[i].ingredients.length)
+        if (missingPercentage < closestRecipeVal){
         	runnerUpVal = closestRecipeVal; //Move old closest to 2nd closest position
         	runnerUpLoc = closestRecipeLoc; 
 
-        	closestRecipeVal = missingIngredients;
+        	closestRecipeVal = missingPercentage;
         	closestRecipeLoc = i;
 
-        }else if (missingIngredients < runnerUpVal){
-        	runnerUpVal = missingIngredients;
+        }else if (missingPercentage < runnerUpVal){
+        	runnerUpVal = missingPercentage;
         	runnerUpLoc = i;
         }
-        characteristicArray[i] = missingIngredients;
+        characteristicArray[i] = missingPercentage;
     }
 
-    console.log("Best Match: " + json.recipes[closestRecipeLoc].name);
-    console.log("Second Best Match: " + json.recipes[runnerUpLoc].name)
+    console.log("Best Match: " + json.recipes[closestRecipeLoc].name + " " + characteristicArray[closestRecipeLoc]);
+    console.log("Second Best Match: " + json.recipes[runnerUpLoc].name + " " + characteristicArray[runnerUpLoc])
 
     return ["Best Match: " + json.recipes[closestRecipeLoc].name + ": " + json.recipes[closestRecipeLoc].link, "Second Best Match: " + json.recipes[runnerUpLoc].name + ": " + json.recipes[runnerUpLoc].link]
 }

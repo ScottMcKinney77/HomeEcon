@@ -242,6 +242,24 @@ $(function() {
     	});
     }
 
+    $('#manualEntryForm').submit(function(event) {
+        event.preventDefault();
+        $("input").prop("disabled", true);
+
+        formData = {
+            productName : $(this).find('input[type="text"]').val()
+        };
+        console.log(formData.productName);
+        if(!onList.has(formData.productName)){
+            onList.add(formData.productName);
+            $productsHTML.append('<li>Product Name: ' + formData.productName + '</li>');
+        }else{
+            console.log("Repeated item")
+        }
+        $('input[name=productName]').val('')
+        $("input").prop("disabled", false)
+    });
+
     $( "#submitButton" ).click(function() {
         onListArr = Array.from(onList)
         rets = doQuery(onListArr)
