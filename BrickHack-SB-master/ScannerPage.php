@@ -40,14 +40,14 @@
       <ul id="products">
         
       </ul>
-          <h3 align="left">Manual Entry:</h3>
+          <h1 align="left">Manual Entry:</h1>
           <form id='manualEntryForm' method="post">
               <input type="text" name="productName" placeholder="input" class="input-box">
               <input type="submit" id="submit" value="Submit">
           </form>
       <div id="interactive" class="viewport"></div>
       <br>
-      <button id="submitButton">Generate Recipes</button>
+      <button id="submitButton" class="sbmt btn scan">Generate Recipes</button>
       <ul id="resultsDisplay">
         
       </ul>
