@@ -1,3 +1,7 @@
+#
+# Supporting python script to scrape the Wegmans recipes site for all of the different recipes and generate csv file
+# Wegmans recipes site uses js to change urls instead of HTML links, and links follow no distinct patttern, so urls must be generated manually and placed in "link_list.txt" file
+#
 from selenium import webdriver
 from bs4 import BeautifulSoup
 import csv

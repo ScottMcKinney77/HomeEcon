@@ -1,3 +1,6 @@
+#
+# Supporting python script to convert csv data from Recipes web scraper to JSON format
+#
 import csv, json
 
 csvFilePath = 'data.csv'

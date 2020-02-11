@@ -60,7 +60,7 @@
     <script src="js/queryTest.js" type="text/javascript"></script>
     <script src="//webrtc.github.io/adapter/adapter-latest.js" type="text/javascript"></script>
     <script src="quag/quagga.js" type="text/javascript"></script>
-    <script src="js/live_w_locator.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
   </body>
 </html>
   

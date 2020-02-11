@@ -1,3 +1,7 @@
+/*
+    * Querying functionality included at the bottom of this recipes JSON database
+    * Included JSON + JS in same file due to unwanted local JSON access complexities
+*/
 var json = {
     "recipes":[
         {
